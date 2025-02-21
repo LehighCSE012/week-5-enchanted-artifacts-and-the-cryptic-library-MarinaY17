@@ -14,7 +14,7 @@ def discover_artifact(player_stats, artifacts, artifact_name):
         print(f"Effect: {artifact['effect']} (+{artifact['power']})")
     else:
         print("You found nothing of interest.")
-    return player_stats
+    return player_stats, artifacts
 
 def find_clue(clues, new_clue):
     if new_clue in clues:
@@ -24,7 +24,7 @@ def find_clue(clues, new_clue):
         print(f"You discovered a new clue: {new_clue}")
     return clues
 
-def enter_dungeon(player_stats, inventory, dungeon_rooms, clues):
+def enter_dungeon(player_stats, inventory, dungeon_rooms, clues, artifacts):
     for room in dungeon_rooms:
         room_name, item, challenge_type, challenge_outcome = room
         print(f"Entering: {room_name}")
@@ -100,11 +100,11 @@ def main():
             artifact_keys = list(artifacts.keys())
             if artifact_keys:
                 artifact_name = random.choice(artifact_keys)
-                player_stats = discover_artifact(player_stats, artifacts, artifact_name)
+                player_stats, artifacts = discover_artifact(player_stats, artifacts, artifact_name)
                 display_player_status(player_stats)
         
         if player_stats['health'] > 0:
-            player_stats, inventory, clues = enter_dungeon(player_stats, inventory, dungeon_rooms, clues)
+            player_stats, inventory, clues = enter_dungeon(player_stats, inventory, dungeon_rooms, clues, artifacts)
             print("\n--- Game End ---")
             display_player_status(player_stats)
             print("Final Inventory:", inventory)
@@ -112,4 +112,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
