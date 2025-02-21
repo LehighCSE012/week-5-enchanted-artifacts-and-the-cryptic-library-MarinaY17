@@ -5,7 +5,14 @@ import random
 def display_player_status(player_stats):
     """Display player's health and attack status"""
     print(f"Health: {player_stats['health']}, Attack: {player_stats['attack']}")
-
+def display_inventory(inventory):
+    """Displays the player's current inventory"""
+    if not inventory:
+        print("Your inventory is empty.", end="")
+    else:
+        print("Your inventory:")
+        for index, item in enumerate(inventory, 1):
+            print(f"{index}. {item}")
 def handle_path_choice(player_stats):
     """Player chooses a path, affecting health."""
     path = random.choice(["left", "right"])
